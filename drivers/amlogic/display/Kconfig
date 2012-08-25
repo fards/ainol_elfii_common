@@ -1,0 +1,21 @@
+#
+# Amlogic display driver configuration
+#
+menu "Amlogic Display Driver"
+
+config AM_DISPLAY_MODULE
+	bool "Enable aml display module"
+	default y
+	help 
+	"display include logo,ge2d vout etc."
+if  AM_DISPLAY_MODULE
+source "drivers/amlogic/display/vout/Kconfig"
+source "drivers/amlogic/display/vout2/Kconfig"
+
+source "drivers/amlogic/display/osd/Kconfig"
+source "drivers/amlogic/display/backlight/Kconfig"
+source "drivers/amlogic/display/ge2d/Kconfig"
+source "drivers/amlogic/display/aml_logo/Kconfig"
+endif		
+
+endmenu	

@@ -1,0 +1,28 @@
+#
+# Amlogic tvin devices configuration
+#
+
+
+menu "Amlogic TVIN Support"
+
+config TVIN_HDMI
+	tristate "Amlogic TVIN HDMIRX device"
+	default n
+	help
+		HDMI device driver.
+
+config TVIN_AFE
+	tristate "Amlogic TVIN TVAFE device"
+	depends on !ARCH_MESON1
+	default n
+	help
+		AFE device driver.
+
+config TVIN_VDIN
+	tristate "Amlogic TVIN VDIN device"
+	default n
+	help
+		VDIN devices driver.
+
+endmenu
+

@@ -1,0 +1,19 @@
+menu  "Amlogic I2C Hardware Bus support"
+    depends on PLAT_MESON
+config I2C_AML
+        bool "Amlogic I2C Driver"
+        select I2C
+        select I2C_CHARDEV
+        select I2C_ALGOBIT
+	help
+          Yet another Amlogic I2C Driver, normal master
+
+config I2C_SW_AML
+        bool "Amlogic software I2C Driver"
+        select I2C
+        select I2C_CHARDEV
+        select I2C_ALGOBIT
+	help
+          Amlogic software I2C Driver, normal gpio simulate I2C, bit algo
+endmenu
+

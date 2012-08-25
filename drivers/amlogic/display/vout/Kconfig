@@ -1,0 +1,19 @@
+#
+# Video output configuration
+#
+menu "Amlogic video output module"
+
+config AM_TV_OUTPUT
+	tristate "TV output"
+	default y
+	help  
+		tv output module
+
+config AM_LCD_OUTPUT
+	tristate "LCD output" 
+	default y
+	help  
+		LCD output module
+
+endmenu
+	

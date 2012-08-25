@@ -1,0 +1,36 @@
+#
+# Mali 400 GPU OpenGL device driver
+#
+
+menu "Mali 400 GPU OpenGL device driver"
+
+config MALI
+	tristate "Mali 400 GPU OpenGL device driver"
+	depends on MODULES
+	default m
+	help
+	  Enable kernel module build for Mali 400 OpenGL device driver.
+
+
+choice
+	prompt "Mali frequency"
+	default MALI_CLK_333M
+	depends on ARCH_MESON6
+	
+config MALI_CLK_400M
+	bool "Mali clock 400M"
+	help	
+		Mali clock set to 400M
+config MALI_CLK_333M
+	bool"Mali clock 333M"
+	help
+		Mali clock set to 333M
+config MALI_CLK_250M
+	bool"Mali clock 250M"
+	help
+		Mali clock set to 250M		
+
+endchoice
+
+endmenu
+

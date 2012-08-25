@@ -1,0 +1,13 @@
+#
+# Amlogic efuse device configuration
+#
+
+menu "Amlogic EFUSE Support"
+
+config EFUSE
+	bool "EFUSE Driver"
+	default n
+	help
+	    EFUSE device driver.
+
+endmenu
