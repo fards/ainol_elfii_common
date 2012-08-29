@@ -51,6 +51,7 @@ modules.builtin
 !.gitignore
 !.mailmap
 !.config
+!.config.old
 !.version
 
 #
