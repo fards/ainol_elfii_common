@@ -1860,7 +1860,7 @@ static  int __init setup_usb_devices(void)
 /* built-in usb wifi power ctrl, usb dongle must register NULL to power_ctrl! 1:power on  0:power off */
 #ifdef CONFIG_AM_WIFI
 #ifdef CONFIG_AM_WIFI_USB
-static void usb_wifi_power(int is_power)
+static int usb_wifi_power(int is_power)
 {
     printk(KERN_INFO "usb_wifi_power %s\n", is_power ? "On" : "Off");
 //    CLEAR_CBUS_REG_MASK(PERIPHS_PIN_MUX_1,(1<<11));
@@ -1874,7 +1874,7 @@ static void usb_wifi_power(int is_power)
     	gpio_out(PAD_GPIOC_8, 0); 
 	else
 		gpio_out(PAD_GPIOC_8, 1); 
-    //return 0;
+    return 0;
 	;
 }
 
