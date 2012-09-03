@@ -894,7 +894,7 @@ static int _clk_set_rate_cpu(struct clk *clk, unsigned long cpu, unsigned long g
 
 	clk->rate = cpu; 
  
-	pr_debug("(CTS_CPU_CLK) CPU %ld.%ldMHz\n",  clk_get_rate_a9(clk) / 1000000,clk_get_rate_a9(clk)%1000000);
+	pr_info("(CTS_CPU_CLK) CPU %ld.%ldMHz\n",  clk_get_rate_a9(clk) / 1000000,clk_get_rate_a9(clk)%1000000);
 	return 0;
 }
 
@@ -2328,7 +2328,7 @@ static ssize_t mali_max_store(struct class *cla, struct class_attribute *attr, c
 static ssize_t mali_max_show(struct class *cla, struct class_attribute *attr, char *buf)
 {
 	printk("%u\n", mali_max);
-	return 0;
+	return sprintf(buf, "%d\n", mali_max);
 }
 
 // -------------------- frequency limit sysfs ---------------------
@@ -2345,7 +2345,7 @@ static ssize_t freq_limit_store(struct class *cla, struct class_attribute *attr,
 static ssize_t freq_limit_show(struct class *cla, struct class_attribute *attr, char *buf)
 {
 	printk("%u\n", freq_limit);
-	return 0;
+	return sprintf(buf, "%d\n", freq_limit);
 }
 
 static struct class_attribute mali_freq_class_attrs[] = {

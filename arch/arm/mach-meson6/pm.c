@@ -725,6 +725,26 @@ static void meson_system_late_resume(struct early_suspend *h)
 }
 #endif
 
+#ifdef CONFIG_SCREEN_ON_EARLY
+void vout_pll_resume_early(void)
+{
+	
+#ifdef CONFIG_HAS_EARLYSUSPEND
+    if (early_suspend_flag){
+        early_power_gate_switch(ON);
+        early_clk_switch(ON);
+        early_suspend_flag = 0;
+		if(pdata->set_exgpio_early_suspend){
+			pdata->set_exgpio_early_suspend(ON);
+		}
+        printk(KERN_INFO "sys_resume\n");
+    }
+#endif
+    return;
+}
+EXPORT_SYMBOL(vout_pll_resume_early);
+#endif
+
 #define         MODE_DELAYED_WAKE       0
 #define         MODE_IRQ_DELAYED_WAKE   1
 #define         MODE_IRQ_ONLY_WAKE      2

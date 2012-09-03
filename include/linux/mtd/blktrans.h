@@ -45,6 +45,7 @@ struct mtd_blktrans_dev {
 	struct attribute_group *disk_attributes;
 	struct task_struct *thread;
 	struct request_queue *rq;
+	struct request *req;
 	spinlock_t queue_lock;
 	void *priv;
 };

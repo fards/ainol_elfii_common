@@ -200,5 +200,10 @@ typedef union phy_tune_data {
 #define USB_PHY_CLK_SEL_FCLK_DIV_2	6
 #define USB_PHY_CLK_SEL_FCLK_DIV_3	7
 
+#define USB_BC_MODE_DISCONNECT	0	/* Disconnected */
+#define USB_BC_MODE_SDP		1	/* PC */
+#define USB_BC_MODE_DCP		2	/* Charger */
+#define USB_BC_MODE_CDP		3	/* PC + Charger */
+
 extern int set_usb_phy_clk(struct lm_device * plmdev,int is_enable);
 #endif
