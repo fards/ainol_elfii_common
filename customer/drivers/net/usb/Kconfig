@@ -1,0 +1,25 @@
+#
+# USB Network devices configuration
+#
+comment "Networking support is needed for USB Network Adapter support"
+	depends on USB && !NET
+
+menu "USB Network Adapters"
+	depends on USB && NET
+	  
+config USB_NET_QF9700
+	tristate "QF9700 based Ethernet adapters"
+	depends on USB_USBNET
+	help
+	  Choose this option if you're using a 10/100 Ethernet USB2
+	  adapter based on the QF9700 controller. This includes
+	  adapters marketed under the DeLOCK brand.
+config USB_NET_SR9600
+	tristate "SR9600 based Ethernet adapters"
+	depends on USB_USBNET
+	help
+	  Choose this option if you're using a 10/100 Ethernet USB2
+	  adapter based on the SR9600 controller. This includes
+	  adapters marketed under the DeLOCK brand.
+	  
+endmenu

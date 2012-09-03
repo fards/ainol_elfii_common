@@ -1,0 +1,22 @@
+#
+# Touchscreen driver configuration
+#
+
+menuconfig MESON_INPUT_TOUCHSCREEN
+	bool "Touchscreens"
+	help
+	  Say Y here, and a list of supported touchscreens will be displayed.
+	  This option doesn't affect the kernel.
+
+	  If unsure, say Y.
+
+if MESON_INPUT_TOUCHSCREEN
+
+config FOCALTECH_CAPACITIVE_TOUCHSCREEN_G06
+	tristate "FocalTech I2C capacitive touchscreen for g06"
+	depends on I2C
+	default n
+	help
+	  Say Y here if you want to use the FocalTech 5X06 capacitive panel.
+	  
+endif # MESON_INPUT_TOUCHSCREEN

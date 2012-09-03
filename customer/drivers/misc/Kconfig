@@ -1,0 +1,76 @@
+#
+# Misc strange devices
+#
+
+menuconfig MISC_DEVICES
+	bool "Misc devices"
+	---help---
+	  Say Y here to get to see options for device drivers from various
+	  different categories. This option alone does not add any kernel code.
+
+	  If you say N, all options in this submenu will be skipped and disabled.
+
+if MISC_DEVICES
+
+config BOSCH_BMA250
+	tristate "BMA250 acceleration sensor support"
+	depends on I2C=y
+	help
+	  If you say yes here you get support for Bosch Sensortec's 
+	  acceleration sensors BMA250.
+	  NOT memsic solution
+
+config BOSCH_BMA222
+	tristate "BMA222 acceleration sensor support"
+	depends on I2C=y
+	help
+	  If you say yes here you get support for Bosch Sensortec's 
+	  acceleration sensors BMA222.
+
+config BOSCH_BMA250_MEMSIC
+	tristate "MEMSIC BMA250 acceleration sensor support"
+	depends on I2C=y
+	help
+	  If you say yes here you get support for Bosch Sensortec's 
+	  acceleration sensors BMA250.
+	  
+config SENSORS_MMA8452
+	tristate "MEMSIC Accelerometer Sensor MMA8452 Driver Support"
+	depends on I2C
+	help
+	  If you say yes here you get support for the MEMSIC accelerometer sensor
+	  
+config SENSORS_MMA7660
+	tristate "MEMSIC Accelerometer Sensor MMA7660 Driver Support"
+	depends on I2C
+	help
+	  If you say yes here you get support for the MEMSIC accelerometer sensor
+
+config SENSORS_MMC314X
+	tristate "MEMSIC MMC314X magnetic sensor support"
+	depends on I2C=y
+	help
+	  If you say yes here you get support for MEMSIC's 
+	  magnetic sensors MMC314X.
+config SENSORS_MMC328X
+	tristate "MEMSIC MMC328X magnetic sensor support"
+	depends on I2C=y
+	help
+	  If you say yes here you get support for MEMSIC's 
+	  magnetic sensors MMC328XMS.
+
+config SENSORS_MMC328XMA
+	tristate "MEMSIC MMC328XMA magnetic sensor support"
+	depends on I2C=y
+	help
+	  If you say yes here you get support for MEMSIC's 
+	  magnetic sensors MMC328XMA.
+config ECOMPASS
+	tristate "MEMSIC eCompass Driver Support"
+	depends on I2C
+	help
+	  If you say yes here you get support for the MEMSIC eCompass
+	  
+
+
+endif # MISC_DEVICES

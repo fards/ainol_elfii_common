@@ -1,0 +1,6 @@
+# Customer board database of machine macros and numbers
+#
+meson6_g06		MACH_MESON6_G06		MESON6_G06		20003
+meson6_g08		MACH_MESON6_G08		MESON6_G08		20005
+meson6_g06_j1		MACH_MESON6_G06_j1		MESON6_G06_j1		20013
+
