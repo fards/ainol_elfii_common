@@ -240,8 +240,7 @@ static void meson_vout_late_resume(struct early_suspend *h)
 **	vout driver interface  
 **
 ******************************************************************/
-static int __init
- meson_vout_probe(struct platform_device *pdev)
+static int meson_vout_probe(struct platform_device *pdev)
 {
 	int ret =-1;
 	
