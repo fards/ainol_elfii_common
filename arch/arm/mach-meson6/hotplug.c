@@ -13,7 +13,9 @@
 #include <asm/cacheflush.h>
 #include <plat/regops.h>
 
-extern inline void meson_set_cpu_ctrl_reg(int value);
+#include <linux/module.h>
+
+extern void meson_set_cpu_ctrl_reg(int value);
 
 int platform_cpu_kill(unsigned int cpu)
 {
