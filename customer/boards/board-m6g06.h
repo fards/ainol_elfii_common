@@ -89,7 +89,7 @@
 #define STREAMBUF_ADDR_END      (STREAMBUF_ADDR_START+STREAMBUF_MEM_SIZE-1)
 
 #define RESERVED_MEM_END    (STREAMBUF_ADDR_END)
-int  m6g06_lcd_init(void);
+int __init m6g06_lcd_init(void);
 int __init m6ref_power_init(void);
 
 #endif // __MACH_MESON3_BOARD_M3REF_H

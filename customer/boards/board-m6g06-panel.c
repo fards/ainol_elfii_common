@@ -383,7 +383,7 @@ static struct platform_device __initdata * m6g06_lcd_devices[] = {
     &m6g06_backlight_device,
 };
 
-int  m6g06_lcd_init(void)
+int  __init m6g06_lcd_init(void)
 {
     int err;
 	lcd_sync_duration(&m6g06_lcd_config);
