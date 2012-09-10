@@ -20,9 +20,10 @@
 #include <asm/hardware/gic.h>
 #include <asm/cacheflush.h>
 #include <asm/mach-types.h>
-
+#include <mach/clock.h>
+static DEFINE_SPINLOCK(clockfw_lock);
 extern void meson_secondary_startup(void);
-extern void meson_set_cpu_ctrl_reg(int value);
+//extern inline void meson_set_cpu_ctrl_reg(int value);
 
 /*
  * control for which core is the next to come out of the secondary
@@ -80,9 +81,11 @@ int __cpuinit boot_secondary(unsigned int cpu, struct task_struct *idle)
     aml_write_reg32((uint32_t)(IO_AHB_BASE + 0x1ff84),
             (const uint32_t)virt_to_phys(meson_secondary_startup));
 
-
-    //aml_write_reg32(IO_AHB_BASE + 0x1ff80, (1 << cpu) | 1);
-    meson_set_cpu_ctrl_reg((1 << cpu) | 1);
+	spin_lock(&clockfw_lock);
+	aml_write_reg32(IO_AHB_BASE + 0x1ff80, (1 << cpu) | 1);
+	spin_unlock(&clockfw_lock);
+   //aml_write_reg32(IO_AHB_BASE + 0x1ff80, (1 << cpu) | 1);
+   //meson_set_cpu_ctrl_reg((1 << cpu) | 1);
 
     smp_wmb();
 
@@ -90,12 +93,11 @@ int __cpuinit boot_secondary(unsigned int cpu, struct task_struct *idle)
      * Send a 'sev' to wake the secondary core from WFE.
      * Drain the outstanding writes to memory
      */mb();
-//#ifndef CONFIG_MESON6_SMP_HOTPLUG
+
     dsb_sev();
-/*else
-   * gic_raise_softirq(cpumask_of(cpu), 0);
-#endif
-*/
+
+  //  gic_raise_softirq(cpumask_of(cpu), 0);
+
     timeout = jiffies + (10 * HZ);
     while (time_before(jiffies, timeout))
         {

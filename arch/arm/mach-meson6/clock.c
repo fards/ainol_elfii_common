@@ -45,8 +45,8 @@ static DEFINE_SPINLOCK(mali_clk_lock);
 static DEFINE_SPINLOCK(clockfw_lock);
 static DEFINE_MUTEX(clock_ops_lock);
 
-static unsigned int mali_max = 333000;
-static unsigned int freq_limit = 1;
+static unsigned int mali_max = 400000;
+static unsigned int freq_limit = 0;
 
 static int set_sys_pll(struct clk *clk, unsigned long src, unsigned long dst, unsigned * scale_divn);
 #define IS_CLK_ERR(a)  (IS_ERR(a) || a == 0)
@@ -894,7 +894,7 @@ static int _clk_set_rate_cpu(struct clk *clk, unsigned long cpu, unsigned long g
 
 	clk->rate = cpu; 
  
-	pr_info("(CTS_CPU_CLK) CPU %ld.%ldMHz\n",  clk_get_rate_a9(clk) / 1000000,clk_get_rate_a9(clk)%1000000);
+	pr_debug("(CTS_CPU_CLK) CPU %ld.%ldMHz\n",  clk_get_rate_a9(clk) / 1000000,clk_get_rate_a9(clk)%1000000);
 	return 0;
 }
 
@@ -1059,7 +1059,7 @@ static int clk_set_rate_a9(struct clk *clk, unsigned long rate)
 
 static int clk81_target_rate = 0;
 
-static int set_clk81_clock(int rate)
+static void set_clk81_clock(int rate)
 {
     aml_set_reg32_bits(P_HHI_MPEG_CLK_CNTL, 0, 8, 1); //switch to xtal
     if (rate <= 100000000) {//100M
@@ -1108,7 +1108,7 @@ static int cal_final_clk81_clk(int rate)
     return ret;
 }
 
-static int clk_set_rate_clk81(struct clk *clk, unsigned long rate)
+static void clk_set_rate_clk81(struct clk *clk, unsigned long rate)
 {
     int clk81_rate;
     clk81_rate = clk_get_rate(clk);

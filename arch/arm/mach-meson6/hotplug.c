@@ -12,10 +12,10 @@
 
 #include <asm/cacheflush.h>
 #include <plat/regops.h>
-
+#include <mach/clock.h>
 #include <linux/module.h>
-
-extern void meson_set_cpu_ctrl_reg(int value);
+static DEFINE_SPINLOCK(clockfw_lock);
+//extern inline void meson_set_cpu_ctrl_reg(int value);
 
 int platform_cpu_kill(unsigned int cpu)
 {
@@ -29,8 +29,10 @@ int platform_cpu_kill(unsigned int cpu)
  */
 void platform_cpu_die(unsigned int cpu)
 {
-	//aml_write_reg32((IO_AHB_BASE + 0x1ff80),0);
-	meson_set_cpu_ctrl_reg(0);
+	spin_lock(&clockfw_lock);
+	aml_write_reg32(IO_AHB_BASE + 0x1ff80, 0);
+	spin_unlock(&clockfw_lock);
+	//meson_set_cpu_ctrl_reg(0);
 	flush_cache_all();
 	dsb();
 	dmb();
