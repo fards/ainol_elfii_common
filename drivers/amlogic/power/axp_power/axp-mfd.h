@@ -84,7 +84,7 @@ struct axp_supply_init_data {
 	void (*battery_low)(void);
 	void (*battery_critical)(void);
     /*led control*/
-    void (*led_control)(void);    ///not sure about this I don't think it should be void at all
+    void (*led_control)(flag);    ///not sure about this I don't think it should be void at all
 };
 
 struct axp_cfg_info {

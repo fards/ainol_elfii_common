@@ -1,0 +1,11 @@
+# mount point	fstype		device			device2
+/bootloader	mtd		bootloader
+/logo		mtd		logo
+/aml_logo	mtd		aml_logo
+/recovery	mtd		recovery
+/boot		mtd		boot
+/system		ubifs		/dev/ubi0_0
+/cache		yaffs2		cache
+/data		ubifs		/dev/ubi1_0
+/sdcard		vfat		/dev/block/cardblksd1
+

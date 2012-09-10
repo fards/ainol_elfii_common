@@ -238,7 +238,7 @@ static char early_clks_name[EARLY_CLK_COUNT][32] = {
 #endif
 };
 #if 1
-static void wait_uart_empty()
+static void wait_uart_empty(void)
 {
     unsigned int count=0;
     do{
