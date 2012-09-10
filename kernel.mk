@@ -55,7 +55,8 @@ pmodules:config_uImage
 	$(MMAKE) modules	 MOD_INS_DIR=$(MOD_DIR)
 	cp -f $(MOD_DIR)/mali.ko $(RECOVERY_ROOT)/boot/
 	cp -f $(MOD_DIR)/ump.ko $(RECOVERY_ROOT)/boot/
-
+	cp -f $(MOD_DIR)/dhd.ko $(RECOVERY_ROOT)/system/lib/modules/
+	
 puImage:config_uImage
 	cp -f config_uImage .config
 	$(MMAKE) uImage 
