@@ -84,7 +84,6 @@ int __cpuinit boot_secondary(unsigned int cpu, struct task_struct *idle)
 	spin_lock(&clockfw_lock);
 	aml_write_reg32(IO_AHB_BASE + 0x1ff80, (1 << cpu) | 1);
 	spin_unlock(&clockfw_lock);
-   //aml_write_reg32(IO_AHB_BASE + 0x1ff80, (1 << cpu) | 1);
    //meson_set_cpu_ctrl_reg((1 << cpu) | 1);
 
     smp_wmb();

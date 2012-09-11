@@ -1023,7 +1023,7 @@ static int clk_set_rate_a9(struct clk *clk, unsigned long rate)
 
 	if(freq_limit && rate > 1200000000)
 	{
-		rate = 1200000000;
+		rate = 1512000000;
 		printk("cpu freq limited to %d \n", rate);
 	}		
 #ifdef CONFIG_SMP
@@ -1491,7 +1491,7 @@ static unsigned sys_pll_settings[][6] = {
 	{0x0023e, M6_SYS_PLL_CNTL_2, M6_SYS_PLL_CNTL_3, M6_SYS_PLL_CNTL_4, 0},  // 1488
 	{0x0023f, M6_SYS_PLL_CNTL_2, M6_SYS_PLL_CNTL_3, M6_SYS_PLL_CNTL_4, 0},  // 1512
 };
-static unsigned setup_a9_clk_max=1200000000;
+static unsigned setup_a9_clk_max=1512000000;
 static unsigned setup_a9_clk_min=48000000;
 static int __init a9_clk_max(char *str)
 {
