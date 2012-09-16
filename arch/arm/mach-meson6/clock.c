@@ -894,7 +894,7 @@ static int _clk_set_rate_cpu(struct clk *clk, unsigned long cpu, unsigned long g
 
 	clk->rate = cpu; 
  
-	pr_debug("(CTS_CPU_CLK) CPU %ld.%ldMHz\n",  clk_get_rate_a9(clk) / 1000000,clk_get_rate_a9(clk)%1000000);
+	//pr_info("(CTS_CPU_CLK) CPU %ld.%ldMHz\n",  clk_get_rate_a9(clk) / 1000000,clk_get_rate_a9(clk)%1000000);
 	return 0;
 }
 
@@ -1023,7 +1023,7 @@ static int clk_set_rate_a9(struct clk *clk, unsigned long rate)
 
 	if(freq_limit && rate > 1200000000)
 	{
-		rate = 1512000000;
+		rate = 1200000000;
 		printk("cpu freq limited to %d \n", rate);
 	}		
 #ifdef CONFIG_SMP
@@ -1059,7 +1059,7 @@ static int clk_set_rate_a9(struct clk *clk, unsigned long rate)
 
 static int clk81_target_rate = 0;
 
-static void set_clk81_clock(int rate)
+static int set_clk81_clock(int rate)
 {
     aml_set_reg32_bits(P_HHI_MPEG_CLK_CNTL, 0, 8, 1); //switch to xtal
     if (rate <= 100000000) {//100M
@@ -1108,7 +1108,7 @@ static int cal_final_clk81_clk(int rate)
     return ret;
 }
 
-static void clk_set_rate_clk81(struct clk *clk, unsigned long rate)
+static int clk_set_rate_clk81(struct clk *clk, unsigned long rate)
 {
     int clk81_rate;
     clk81_rate = clk_get_rate(clk);

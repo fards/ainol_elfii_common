@@ -63,6 +63,13 @@ void platform_cpu_die(unsigned int cpu)
 		}
 		pr_debug("CPU%u: spurious wakeup call\n", cpu);
 	}
+#ifdef CONFIG_MESON6_SMP_HOTPLUG
+	/*
+	 * Need invalidate data cache because of disable cpu0 fw
+	 */
+	extern  void v7_invalidate_dcache_all(void);
+	v7_invalidate_dcache_all();
+#endif
 }
 
 int platform_cpu_disable(unsigned int cpu)
@@ -73,3 +80,41 @@ int platform_cpu_disable(unsigned int cpu)
 	 */
 	return cpu == 0 ? -EPERM : 0;
 }
+
+#ifdef CONFIG_MESON6_SMP_HOTPLUG
+/*
+ *disable_cpu_fw() & restore_cpu_fw() need call by cpu0 to disable&restore fw bit setting
+ *Disable fw bit avoids spurious interrupt noisy which from cpu0 cache&TLB broadcast
+ *to offline cpu1 .
+ *
+ */
+static unsigned int ACTLR_FW=0;
+static unsigned int hotplug_flag=0;
+void disable_cpu_fw()
+{
+	__asm__ __volatile__ (
+			"mrc p15, 0,%0, c1, c0, 1 \n"
+			"ldr r1,=0xfffffffe \n"// FW bit
+			"and r0,%0,r1 \n"
+			"mcr p15, 0,r0, c1, c0, 1 \n"//Disable FW bit
+			:"+r" (ACTLR_FW)
+			:
+			:"r0","r1","cc","memory");
+
+	hotplug_flag=1;
+}
+EXPORT_SYMBOL(disable_cpu_fw);
+
+void restore_cpu_fw()
+{
+	if(hotplug_flag)
+	{
+		__asm__ __volatile__ (
+				"mcr p15, 0,%0, c1, c0, 1 \n"
+				:
+				:"r" (ACTLR_FW)
+				:"cc","memory");
+	}
+}
+EXPORT_SYMBOL(restore_cpu_fw);
+#endif//#ifdef CONFIG_MESON6_SMP_HOTPLUG

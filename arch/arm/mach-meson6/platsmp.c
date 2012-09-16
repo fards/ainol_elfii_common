@@ -92,11 +92,11 @@ int __cpuinit boot_secondary(unsigned int cpu, struct task_struct *idle)
      * Send a 'sev' to wake the secondary core from WFE.
      * Drain the outstanding writes to memory
      */mb();
-
+#ifndef CONFIG_MESON6_SMP_HOTPLUG
     dsb_sev();
-
-  //  gic_raise_softirq(cpumask_of(cpu), 0);
-
+#else
+    gic_raise_softirq(cpumask_of(cpu), 0);
+#endif
     timeout = jiffies + (10 * HZ);
     while (time_before(jiffies, timeout))
         {

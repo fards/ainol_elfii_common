@@ -290,6 +290,10 @@ int __ref cpu_down(unsigned int cpu)
 
 	err = _cpu_down(cpu, 0);
 
+#ifdef CONFIG_MESON6_SMP_HOTPLUG
+	extern void disable_cpu_fw();
+	disable_cpu_fw();
+#endif
 out:
 	trace_cpu_hotplug_down_end(cpu);
 
@@ -318,6 +322,10 @@ static int __cpuinit _cpu_up(unsigned int cpu, int tasks_frozen)
 		goto out_notify;
 	}
 
+#ifdef CONFIG_MESON6_SMP_HOTPLUG
+	extern void restore_cpu_fw();
+	restore_cpu_fw();
+#endif
 	/* Arch-specific enabling code. */
 	trace_cpu_hotplug_arch_up_start(cpu);
 	ret = __cpu_up(cpu);

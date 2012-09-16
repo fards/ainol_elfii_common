@@ -62,7 +62,9 @@ static void meson_gic_unmask(struct irq_data *data)
      * Set prority
      */
 
+#ifndef CONFIG_MESON6_SMP_HOTPLUG
     aml_set_reg32_bits(dist_base+GIC_DIST_PRI + (irq  / 4)* 4,0xff,(irq%4)*8,irq_level);
+#endif
 
 }
 /* ARM Interrupt Controller Initialization */
@@ -71,7 +73,9 @@ void __init meson_init_irq(void)
     gic_arch_extn.irq_unmask=meson_gic_unmask;
     gic_init(0,29,(void __iomem *)(IO_PERIPH_BASE+0x1000),(void __iomem *)(IO_PERIPH_BASE+0x100));
 
+#ifndef CONFIG_MESON6_SMP_HOTPLUG
     aml_write_reg32(IO_PERIPH_BASE+0x100 +GIC_CPU_PRIMASK,0xff);
+#endif
 }
 static void (*fiq_isr[NR_IRQS])(void);
 

@@ -51,7 +51,11 @@ void __init scu_enable(void __iomem *scu_base)
 	if (scu_ctrl & 1)
 		return;
 
+#ifdef CONFIG_MESON6_SMP_HOTPLUG
+	scu_ctrl |= 1 |(3<<5);
+#else
 	scu_ctrl |= 1;
+#endif
 	__raw_writel(scu_ctrl, scu_base + SCU_CTRL);
 
 	/*
