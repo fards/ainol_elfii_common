@@ -77,6 +77,7 @@ extern u32 amvideo_get_scaler_para(int* x, int* y, int* w, int* h, u32* ratio);
 static DEFINE_SPINLOCK(lock);
 static bool ppmgr_blocking = false;
 static bool ppmgr_inited = false;
+static int ppmgr_reset_type = 0;
 
 static struct ppframe_s vfp_pool[VF_POOL_SIZE];
 static struct vframe_s *vfp_pool_free[VF_POOL_SIZE+1];
@@ -89,7 +90,7 @@ static DEFINE_MUTEX(ppmgr_mutex);
 
 const vframe_receiver_op_t* vf_ppmgr_reg_provider(void);
 void vf_ppmgr_unreg_provider(void);
-void vf_ppmgr_reset(void);
+void vf_ppmgr_reset(int type);
 static inline void ppmgr_vf_put_dec(vframe_t *vf);
 
 #define to_ppframe(vf)	\
@@ -267,7 +268,7 @@ static int ppmgr_receiver_event_fun(int type, void *data, void *private_data)
             case VFRAME_EVENT_PROVIDER_LIGHT_UNREG:
             break;                 
             case VFRAME_EVENT_PROVIDER_RESET       :
-            	vf_ppmgr_reset();
+            	vf_ppmgr_reset(0);
             	break;
         default:
             break;        
@@ -331,10 +332,11 @@ void vf_ppmgr_unreg_provider(void)
     mutex_unlock(&ppmgr_mutex);
 }
 
-void vf_ppmgr_reset(void)
+void vf_ppmgr_reset(int type)
 {
     if(ppmgr_inited){
         ppmgr_blocking = true;
+        ppmgr_reset_type = type ;
         up(&thread_sem);
     }
 }
@@ -1979,7 +1981,10 @@ static int ppmgr_task(void *data)
         }
         
         if (ppmgr_blocking) {
-            vf_notify_provider(PROVIDER_NAME,VFRAME_EVENT_RECEIVER_RESET,NULL);
+        	if(ppmgr_reset_type){
+            	vf_notify_provider(PROVIDER_NAME,VFRAME_EVENT_RECEIVER_RESET,NULL);
+            	ppmgr_reset_type = 0 ;            	
+        	}
             vf_light_unreg_provider(&ppmgr_vf_prov);
             vf_local_init();
             vf_reg_provider(&ppmgr_vf_prov);
@@ -2101,6 +2106,7 @@ int ppmgr_buffer_init(void)
                       
     ppmgr_blocking = false;
     ppmgr_inited = true;
+    ppmgr_reset_type = 0 ;
     set_buff_change(0);
     sema_init(&thread_sem,1);
     return 0;

@@ -809,11 +809,11 @@ static int ft5x0x_get_event(struct ts_event *event)
     if (focaltechPdata2->ypol)
 			event->y = focaltechPdata2->screen_max_y - event->y;
 		
-
-		if (event->x < 20) event->x = 20;
+		//Denisc recommendation to use full pixel count
+	/*	if (event->x < 20) event->x = 20;
 		if (event->x > 1004) event->x = 1004;
 		if (event->y < 20) event->y = 20;
-		if (event->y > 580) event->y = 580;
+		if (event->y > 580) event->y = 580; */ 
 			 
 		if (event->x == 0) event->x = 1;
 		if (event->y == 0) event->y = 1;
