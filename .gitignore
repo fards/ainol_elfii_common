@@ -53,8 +53,8 @@ customer
 !.config
 !.config.old
 !.version
-
-
+!out/
+!toolchain/
 #
 # Generated include files
 #

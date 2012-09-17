@@ -61,8 +61,8 @@ static void timer_callback(ulong data)
 {
 	unsigned long mali_flags;
 
-    mali_pp1_int_count = mali_PP0_int_cnt();
-    mali_pp2_int_count = mali_PP1_int_cnt();
+    //mali_pp1_int_count = mali_PP0_int_cnt();
+    //mali_pp2_int_count = mali_PP1_int_cnt();
 
     /* lock mali_clock_gating when access Mali registers */
     mali_flags = mali_clock_gating_lock();

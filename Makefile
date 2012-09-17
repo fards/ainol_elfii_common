@@ -371,7 +371,9 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks \
 		-ftree-vectorize --param l2-cache-size=512 --param l1-cache-size=64 \
-		--param simultaneous-prefetches=8 -mno-unaligned-access
+		--param simultaneous-prefetches=8 -mno-unaligned-access \
+		-floop-interchange -floop-strip-mine \
+		 -floop-block -ffast-math -funsafe-loop-optimizations -mfpu=neon-vfpv4	 		
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
