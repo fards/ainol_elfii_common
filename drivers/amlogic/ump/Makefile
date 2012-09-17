@@ -31,10 +31,10 @@ endif
 # Define host system directory
 KDIR-$(shell uname -m):=/lib/modules/$(shell uname -r)/build
 
-ifeq ($(ARCH), arm)
+#ifeq ($(ARCH), arm)
 	# when compiling for ARM we're cross compiling
-	export CROSS_COMPILE ?= arm-none-linux-gnueabi-
-endif
+#	export CROSS_COMPILE ?= arm-none-linux-gnueabi-
+#endif
 
 # look up KDIR based om CPU selection
 KDIR ?= $(KDIR-$(CPU))
@@ -42,11 +42,11 @@ KDIR ?= $(KDIR-$(CPU))
 export CONFIG
 
 export CONFIG_UMP := m
-ifeq ($(BUILD),debug)
-export CONFIG_UMP_DEBUG := y
-else
+#ifeq ($(BUILD),debug)
+#export CONFIG_UMP_DEBUG := y
+#else
 export CONFIG_UMP_DEBUG := n
-endif
+#endif
 
 ifeq ($(KDIR),)
 $(error No KDIR found for platform $(CPU))
