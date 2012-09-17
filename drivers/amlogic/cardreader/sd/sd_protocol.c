@@ -589,7 +589,7 @@ static int myt1 = 0;
 
 extern struct completion dat0_int_complete;
 
-int sdxc_check_dat0_ready()
+int sdxc_check_dat0_ready(void)
 {
 	unsigned int sdxc_status = READ_CBUS_REG(SD_REG3_STAT);
 	SDXC_Status_Reg_t *sdxc_status_reg = (void *)&sdxc_status;

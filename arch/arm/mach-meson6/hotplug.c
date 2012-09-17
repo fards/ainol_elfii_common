@@ -90,7 +90,7 @@ int platform_cpu_disable(unsigned int cpu)
  */
 static unsigned int ACTLR_FW=0;
 static unsigned int hotplug_flag=0;
-void disable_cpu_fw()
+void disable_cpu_fw(void)
 {
 	__asm__ __volatile__ (
 			"mrc p15, 0,%0, c1, c0, 1 \n"
@@ -105,7 +105,7 @@ void disable_cpu_fw()
 }
 EXPORT_SYMBOL(disable_cpu_fw);
 
-void restore_cpu_fw()
+void restore_cpu_fw(void)
 {
 	if(hotplug_flag)
 	{
