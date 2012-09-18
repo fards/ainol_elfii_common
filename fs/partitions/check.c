@@ -550,10 +550,26 @@ static bool disk_unlock_native_capacity(struct gendisk *disk)
 	}
 }
 
+static int drop_partitions(struct gendisk *disk, struct block_device *bdev)
+{
+	struct disk_part_iter piter;
+	struct hd_struct *part;
+       int res;
+	   
+	res = invalidate_partition(disk, 0);
+	if (res)
+		return res;
+
+	disk_part_iter_init(&piter, disk, DISK_PITER_INCL_EMPTY);
+	while ((part = disk_part_iter_next(&piter)))
+		delete_partition(disk, part->partno);
+	disk_part_iter_exit(&piter);
+	return 0;
+}
+
 int rescan_partitions(struct gendisk *disk, struct block_device *bdev)
 {
 	struct parsed_partitions *state = NULL;
-	struct disk_part_iter piter;
 	struct hd_struct *part;
 	int p, highest, res;
 rescan:
@@ -564,14 +580,10 @@ rescan:
 
 	if (bdev->bd_part_count)
 		return -EBUSY;
-	res = invalidate_partition(disk, 0);
+	
+	res = drop_partitions(disk, bdev);
 	if (res)
 		return res;
-
-	disk_part_iter_init(&piter, disk, DISK_PITER_INCL_EMPTY);
-	while ((part = disk_part_iter_next(&piter)))
-		delete_partition(disk, part->partno);
-	disk_part_iter_exit(&piter);
 
 	if (disk->fops->revalidate_disk)
 		disk->fops->revalidate_disk(disk);
@@ -606,8 +618,6 @@ rescan:
 			goto rescan;
 	}
 
-	/* tell userspace that the media / partition table may have changed */
-	kobject_uevent(&disk_to_dev(disk)->kobj, KOBJ_CHANGE);
 
 	/* Detect the highest partition number and preallocate
 	 * disk->part_tbl.  This is an optimization and not strictly
@@ -672,7 +682,33 @@ rescan:
 			md_autodetect_dev(part_to_dev(part)->devt);
 #endif
 	}
+
+	/* tell userspace that the media / partition table may have changed */
+	kobject_uevent(&disk_to_dev(disk)->kobj, KOBJ_ADD);
 	kfree(state);
+	return 0;
+}
+
+int invalidate_partitions(struct gendisk *disk, struct block_device *bdev)
+{
+	struct parsed_partitions *state = NULL;
+	int res;
+rescan:	
+	if (!bdev->bd_invalidated)
+		return 0;
+
+	res = drop_partitions(disk, bdev);
+	if (res)
+		return res;
+
+	if (disk->fops->revalidate_disk)
+		disk->fops->revalidate_disk(disk);
+	check_disk_size_change(disk, bdev);
+	bdev->bd_invalidated = 0;
+	if (!get_capacity(disk) || !(state = check_partition(disk, bdev))){
+		return 0;
+	}
+
 	return 0;
 }
 
