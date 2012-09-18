@@ -348,10 +348,10 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   =
+CFLAGS_MODULE   = -fno-pic -fno-short-enums -march=armv7-a -mtune=cortex-a9
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  =
-CFLAGS_KERNEL	=
+CFLAGS_KERNEL	= -fno-short-enums -march=armv7-a -mtune=cortex-a9
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
@@ -371,9 +371,7 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks \
 		-ftree-vectorize --param l2-cache-size=512 --param l1-cache-size=64 \
-		--param simultaneous-prefetches=8 -mno-unaligned-access \
-		-floop-interchange -floop-strip-mine \
-		 -floop-block -ffast-math -funsafe-loop-optimizations -mfpu=neon-vfpv4	 		
+		--param simultaneous-prefetches=8 -mno-unaligned-access		
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__

@@ -1206,17 +1206,14 @@ CONFIG_AMLOGIC_VIDEOIN_MANAGER=y
 # Mali 400 UMP device driver
 #
 CONFIG_UMP=m
-# CONFIG_UMP_DEBUG is not set
 
 #
-# Mali GPU OpenGL device driver
+# Mali 400 GPU OpenGL device driver
 #
-CONFIG_MALI400=m
+CONFIG_MALI=m
 CONFIG_MALI_CLK_400M=y
 # CONFIG_MALI_CLK_333M is not set
 # CONFIG_MALI_CLK_250M is not set
-# CONFIG_MALI400_DEBUG is not set
-# CONFIG_MALI400_GPU_UTILIZATION is not set
 
 #
 # Generic Driver Options

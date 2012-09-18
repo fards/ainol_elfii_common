@@ -1210,8 +1210,9 @@ CONFIG_UMP=m
 #
 # Mali 400 GPU OpenGL device driver
 #
+
 CONFIG_MALI400=m
-#CONFIG_MALI is not set
+CONFIG_MALI=m
 CONFIG_MALI_CLK_400M=y
 # CONFIG_MALI_CLK_333M is not set
 # CONFIG_MALI_CLK_250M is not set

@@ -55,7 +55,7 @@ static _mali_osk_resource_t arch_configuration [] =
 		.type = OS_MEMORY,
 		.description = "Mali Memory",
 		.alloc_order = 5, /* Medium preference for this memory */
-		.size = 0x14000000,
+		.size = 0x10000000,
 		.flags = _MALI_CPU_WRITEABLE | _MALI_CPU_READABLE | _MALI_PP_READABLE | _MALI_PP_WRITEABLE |_MALI_GP_READABLE | _MALI_GP_WRITEABLE
 	},
 	{
