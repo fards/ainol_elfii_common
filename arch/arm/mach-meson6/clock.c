@@ -51,13 +51,13 @@ static unsigned int freq_limit = 0;
 static int set_sys_pll(struct clk *clk, unsigned long src, unsigned long dst, unsigned * scale_divn);
 #define IS_CLK_ERR(a)  (IS_ERR(a) || a == 0)
 
-#if 0
+//#if 0
 #ifdef CONFIG_INIT_A9_CLOCK_FREQ
 static unsigned long __initdata init_clock = CONFIG_INIT_A9_CLOCK;
 #else
 static unsigned long __initdata init_clock = 0;
 #endif
-#endif
+//#endif
 
 static unsigned int gpu_to_min_cpu(unsigned int gpu);
 static int _clk_set_rate_gpu(struct clk *clk, unsigned long gpu, unsigned long cpu);
@@ -346,14 +346,17 @@ int    clk_measure(char  index )
 
 long clk_round_rate(struct clk *clk, unsigned long rate)
 {
-	if (clk == NULL || IS_ERR(clk))
+	if (clk == NULL || IS_ERR(clk)) {
 		return -EINVAL;
-
-    if (rate < clk->min)
+	}
+	
+    if (rate < clk->min) {
         return clk->min;
+    }
 
-    if (rate > clk->max)
+    if (rate > clk->max) {
         return clk->max;
+    }
 
     return rate;
 }
@@ -361,11 +364,13 @@ EXPORT_SYMBOL(clk_round_rate);
 
 unsigned long clk_get_rate(struct clk *clk)
 {
-	if (clk == NULL || IS_ERR(clk))
+	if (clk == NULL || IS_ERR(clk)) 
 		return -EINVAL;
+	
 
-    if (clk->get_rate)
+    if (clk->get_rate) 
 		return clk->get_rate(clk);
+	
 	else
 		return clk->rate;
 }
@@ -1023,7 +1028,7 @@ static int clk_set_rate_a9(struct clk *clk, unsigned long rate)
 
 	if(freq_limit && rate > 1200000000)
 	{
-		rate = 1200000000;
+		rate = 1512000000;
 		printk("cpu freq limited to %d \n", rate);
 	}		
 #ifdef CONFIG_SMP

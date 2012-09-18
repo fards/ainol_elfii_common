@@ -131,7 +131,7 @@ static int meson_cpufreq_target_locked(struct cpufreq_policy *policy,
     /* if moving to higher frequency, move to an intermediate frequency
      * that does not require a voltage change first.
      */
-#if 0
+//#if 0
     if (pdata && pdata->cur_volt_max_freq && freqs.new > freqs.old) {
         freqInt = pdata->cur_volt_max_freq();
         if (freqInt > freqs.old && freqInt <= freqs.new) {
@@ -143,7 +143,7 @@ static int meson_cpufreq_target_locked(struct cpufreq_policy *policy,
             freqInt = 0;
         }
     }
-#endif
+//#endif
 
     /* if moving to higher frequency, up the voltage beforehand */
     if (pdata && pdata->voltage_scale && freqs.new > freqs.old) {
