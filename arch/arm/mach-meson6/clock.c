@@ -1026,7 +1026,7 @@ static int clk_set_rate_a9(struct clk *clk, unsigned long rate)
 	if (rate < 1000)
 		rate *= 1000000;
 
-	if(freq_limit && rate > 1200000000)
+	if(freq_limit && rate > 1512000000)
 	{
 		rate = 1512000000;
 		printk("cpu freq limited to %d \n", rate);
@@ -1085,6 +1085,7 @@ static int set_clk81_clock(int rate)
     }
     aml_read_reg32(P_HHI_MPEG_CLK_CNTL);
     aml_set_reg32_bits(P_HHI_MPEG_CLK_CNTL, 1, 8, 1);
+	return 0;
 }
 
 int check_and_set_clk81(void)
@@ -1138,6 +1139,7 @@ static int clk_set_rate_clk81(struct clk *clk, unsigned long rate)
     aml_set_reg32_bits(P_AO_UART_CONTROL, ((clk81_rate / (115200 * 4)) - 1) & 0xfff, 0, 12);
     printk("                          \n");
     printk("clk81 switch to %d\n", clk81_rate);
+	return 0;
 }
 
 static unsigned long clk_get_rate_gpu(struct clk * clkdev)

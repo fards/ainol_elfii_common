@@ -1875,7 +1875,7 @@ static int usb_wifi_power(int is_power)
 	else
 		gpio_out(PAD_GPIOC_8, 1); 
     return 0;
-	;
+	
 }
 
 static struct wifi_power_platform_data wifi_plat_data = {
