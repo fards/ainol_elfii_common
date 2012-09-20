@@ -346,17 +346,14 @@ int    clk_measure(char  index )
 
 long clk_round_rate(struct clk *clk, unsigned long rate)
 {
-	if (clk == NULL || IS_ERR(clk)) {
+	if (clk == NULL || IS_ERR(clk))
 		return -EINVAL;
-	}
-	
-    if (rate < clk->min) {
-        return clk->min;
-    }
 
-    if (rate > clk->max) {
+    if (rate < clk->min)
+        return clk->min;
+
+    if (rate > clk->max)
         return clk->max;
-    }
 
     return rate;
 }
@@ -1026,9 +1023,9 @@ static int clk_set_rate_a9(struct clk *clk, unsigned long rate)
 	if (rate < 1000)
 		rate *= 1000000;
 
-	if(freq_limit && rate > 1512000000)
+	if(freq_limit && rate > 1200000000)
 	{
-		rate = 1512000000;
+		rate = 1500000000;
 		printk("cpu freq limited to %d \n", rate);
 	}		
 #ifdef CONFIG_SMP
@@ -1510,7 +1507,7 @@ static int __init a9_clk_max(char *str)
     BUG_ON(setup_a9_clk_min>setup_a9_clk_max);
     return 0;
 }
-early_param("a9_clk_max", a9_clk_max);
+//early_param("a9_clk_max", a9_clk_max);
 static int __init a9_clk_min(char *str)
 {
     unsigned long  clk = clkparse(str, 0);
@@ -1521,7 +1518,7 @@ static int __init a9_clk_min(char *str)
     return 0;
 }
 
-early_param("a9_clk_min", a9_clk_min);
+//early_param("a9_clk_min", a9_clk_min);
 static int set_sys_pll(struct clk *clk, unsigned long src, unsigned long dst, unsigned * scale_divn)
 {
 	int idx;

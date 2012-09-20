@@ -599,13 +599,17 @@ static struct meson_opp vcck_opp_table2[] = {
     /* freq must be in descending order */
     {
         .freq   = 1500000,
-        .min_uV = 1351000,
-        .max_uV = 1351000,
+        /*.min_uV = 1351000,
+        .max_uV = 1351000,*/
+        .min_uV = 1300000,
+        .max_uV = 1300000,
     },
     {
         .freq   = 1320000,
-        .min_uV = 1326000,
-        .max_uV = 1326000,
+        /*.min_uV = 1326000,
+        .max_uV = 1326000,*/
+        .min_uV = 1223000,
+        .max_uV = 1223000,
     },
     {
         .freq   = 1200000,
@@ -657,10 +661,10 @@ static int tmpvolt=-1;
 static unsigned int vcck_cur_max_freq(void)
 {
 //		printk("tmpvolt1 is %d\n",tmpvolt);
-    if(tmpvolt) {//old pcb
+    /*if(tmpvolt) {//old pcb
         return meson_vcck_cur_max_freq(vcck, vcck_opp_table2, ARRAY_SIZE(vcck_opp_table2));
     }
-    else {
+    else*/ {
         return meson_vcck_cur_max_freq(vcck, vcck_opp_table, ARRAY_SIZE(vcck_opp_table));
     }
 }
@@ -668,10 +672,10 @@ static unsigned int vcck_cur_max_freq(void)
 static int vcck_scale(unsigned int frequency)
 {
 //		printk("tmpvolt2 is %d\n",tmpvolt);
-		if(tmpvolt) {//old pcb
+    /*if(tmpvolt) {//old pcb
         return meson_vcck_scale(vcck, vcck_opp_table2, ARRAY_SIZE(vcck_opp_table2),frequency);
     }
-    else {
+    else */ {
         return meson_vcck_scale(vcck, vcck_opp_table, ARRAY_SIZE(vcck_opp_table),frequency);
     }
 }
