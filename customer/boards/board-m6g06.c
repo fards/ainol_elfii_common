@@ -661,10 +661,10 @@ static int tmpvolt=-1;
 static unsigned int vcck_cur_max_freq(void)
 {
 //		printk("tmpvolt1 is %d\n",tmpvolt);
-    /*if(tmpvolt) {//old pcb
+    if(tmpvolt) {//old pcb
         return meson_vcck_cur_max_freq(vcck, vcck_opp_table2, ARRAY_SIZE(vcck_opp_table2));
     }
-    else*/ {
+    else {
         return meson_vcck_cur_max_freq(vcck, vcck_opp_table, ARRAY_SIZE(vcck_opp_table));
     }
 }
@@ -672,10 +672,10 @@ static unsigned int vcck_cur_max_freq(void)
 static int vcck_scale(unsigned int frequency)
 {
 //		printk("tmpvolt2 is %d\n",tmpvolt);
-    /*if(tmpvolt) {//old pcb
+    if(tmpvolt) {//old pcb
         return meson_vcck_scale(vcck, vcck_opp_table2, ARRAY_SIZE(vcck_opp_table2),frequency);
     }
-    else */ {
+    else  {
         return meson_vcck_scale(vcck, vcck_opp_table, ARRAY_SIZE(vcck_opp_table),frequency);
     }
 }
@@ -1189,7 +1189,7 @@ static pinmux_set_t aml_uart_ao = {
     .pinmux = &uart_pins[0]
 };
 
-static struct aml_uart_platform aml_uart_plat = {
+static struct aml_uart_platform  __initdata aml_uart_plat = {
     .uart_line[0]   = UART_AO,
     .uart_line[1]   = UART_A,
     .uart_line[2]   = UART_B,
@@ -1203,7 +1203,7 @@ static struct aml_uart_platform aml_uart_plat = {
     .pinmux_uart[4] = NULL
 };
 
-static struct platform_device aml_uart_device = {
+static  struct platform_device __initdata aml_uart_device = {
     .name       = "mesonuart",
     .id     = -1,
     .num_resources  = 0,
@@ -2164,7 +2164,7 @@ static void power_off(void)
 /***********************************************************************
  * Device Register Section
  **********************************************************************/
-static struct platform_device  *platform_devs[] = {
+static  struct platform_device *platform_devs[]  __initdata =  {
 #if defined(CONFIG_I2C_AML) || defined(CONFIG_I2C_HW_AML)
     &aml_i2c_device_a,
     &aml_i2c_device_b,

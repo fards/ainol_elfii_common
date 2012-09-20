@@ -51,13 +51,13 @@ static unsigned int freq_limit = 0;
 static int set_sys_pll(struct clk *clk, unsigned long src, unsigned long dst, unsigned * scale_divn);
 #define IS_CLK_ERR(a)  (IS_ERR(a) || a == 0)
 
-//#if 0
+#if 0
 #ifdef CONFIG_INIT_A9_CLOCK_FREQ
 static unsigned long __initdata init_clock = CONFIG_INIT_A9_CLOCK;
 #else
 static unsigned long __initdata init_clock = 0;
 #endif
-//#endif
+#endif
 
 static unsigned int gpu_to_min_cpu(unsigned int gpu);
 static int _clk_set_rate_gpu(struct clk *clk, unsigned long gpu, unsigned long cpu);
@@ -1025,7 +1025,7 @@ static int clk_set_rate_a9(struct clk *clk, unsigned long rate)
 
 	if(freq_limit && rate > 1200000000)
 	{
-		rate = 1500000000;
+		rate = 1512000000;
 		printk("cpu freq limited to %d \n", rate);
 	}		
 #ifdef CONFIG_SMP
@@ -2332,7 +2332,7 @@ static ssize_t mali_max_store(struct class *cla, struct class_attribute *attr, c
 static ssize_t mali_max_show(struct class *cla, struct class_attribute *attr, char *buf)
 {
 	printk("%u\n", mali_max);
-	return sprintf(buf, "%d\n", mali_max);
+	return 0;
 }
 
 // -------------------- frequency limit sysfs ---------------------
@@ -2349,7 +2349,7 @@ static ssize_t freq_limit_store(struct class *cla, struct class_attribute *attr,
 static ssize_t freq_limit_show(struct class *cla, struct class_attribute *attr, char *buf)
 {
 	printk("%u\n", freq_limit);
-	return sprintf(buf, "%d\n", freq_limit);
+	return 0;
 }
 
 static struct class_attribute mali_freq_class_attrs[] = {
