@@ -47,7 +47,7 @@ obj-$(CONFIG_MMC_AML) +=mmc/
 
 obj-$(CONFIG_UMP) += ump/
 
-obj-$(CONFIG_MALI) += mali/
+obj-$(CONFIG_MALI400) += mali/
 obj-y += vfm/
 
 obj-$(CONFIG_AML_AUDIO_DSP) += audiodsp/

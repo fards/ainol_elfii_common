@@ -124,7 +124,7 @@ static const u32 poweron_data[] =
 static DEFINE_SPINLOCK(lock);
 static struct clk *mali_clk = NULL;
 
-///static int mali_revb_flag = -1;
+//static int mali_revb_flag = -1;
 extern int mali_revb_flag;
 static int mali_meson_rev_detect(void)
 {
