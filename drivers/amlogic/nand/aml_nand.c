@@ -3366,8 +3366,6 @@ int aml_nand_init(struct aml_nand_chip *aml_chip)
 	struct nand_chip *chip = &aml_chip->chip;
 	struct mtd_info *mtd = &aml_chip->mtd;
 	int err = 0, i = 0, phys_erase_shift;
-	int oobmul  ;
-	unsigned por_cfg, valid_chip_num = 0;
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
     aml_chip->nand_early_suspend.level = EARLY_SUSPEND_LEVEL_BLANK_SCREEN;
@@ -3708,7 +3706,7 @@ int aml_nand_init(struct aml_nand_chip *aml_chip)
 		chip->ecc.layout = plat->platform_nand_data.chip.ecclayout;
 	}
 	else {
-		oobmul =mtd->oobsize /aml_chip->oob_size ;
+
 		if (!strncmp((char*)plat->name, NAND_BOOT_NAME, strlen((const char*)NAND_BOOT_NAME))) {
 			chip->ecc.layout = &aml_nand_uboot_oob;
 		}
@@ -3772,9 +3770,6 @@ int aml_nand_init(struct aml_nand_chip *aml_chip)
 						chip->ecc.layout->oobfree[0].length = ((mtd->writesize / chip->ecc.size) * aml_chip->user_byte_mode);
 					break;
 			}
-			chip->ecc.layout->eccbytes *= oobmul;
-			chip->ecc.layout->oobfree[0].length *=oobmul;
-		printk(" oob layout use nand base oob layout oobsize = %d,oobmul =%d,mtd->oobsize =%d,aml_chip->oob_size =%d\n", chip->ecc.layout->oobfree[0].length,oobmul,mtd->oobsize,aml_chip->oob_size);
 		}
 	}
 
