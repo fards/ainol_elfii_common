@@ -8,7 +8,7 @@
 #include <linux/err.h>
 #include <linux/hardirq.h>
 
-#define PRINT_DEBUG_INFO
+//#define PRINT_DEBUG_INFO
 #ifdef PRINT_DEBUG_INFO
 #define PRINT_INFO(...)		printk(__VA_ARGS__)
 #else
