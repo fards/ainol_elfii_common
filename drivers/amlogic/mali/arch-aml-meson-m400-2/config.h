@@ -75,14 +75,14 @@ static _mali_osk_resource_t arch_configuration [] =
 		.type = OS_MEMORY,
 		.description = "Mali Memory",
 		.alloc_order = 5, /* Medium preference for this memory */
-		.size = 0x14000000,
+		.size = 0x20000000,
 		.flags = _MALI_CPU_WRITEABLE | _MALI_CPU_READABLE | _MALI_PP_READABLE | _MALI_PP_WRITEABLE |_MALI_GP_READABLE | _MALI_GP_WRITEABLE
 	},
 	{
 		.type = MEM_VALIDATION,
 		.description = "Framebuffer",
 		.base = 0x84000000,
-		.size = 0x06000000,
+		.size = 0x12000000,
 		.flags = _MALI_CPU_WRITEABLE | _MALI_CPU_READABLE | _MALI_PP_WRITEABLE | _MALI_PP_READABLE
 	},
 	{
@@ -152,14 +152,14 @@ static _mali_osk_resource_t arch_configuration_revb [] =
 		.type = OS_MEMORY,
 		.description = "Mali Memory",
 		.alloc_order = 5, /* Medium preference for this memory */
-		.size = 0x14000000,
+		.size = 0x20000000,
 		.flags = _MALI_CPU_WRITEABLE | _MALI_CPU_READABLE | _MALI_PP_READABLE | _MALI_PP_WRITEABLE |_MALI_GP_READABLE | _MALI_GP_WRITEABLE
 	},
 	{
 		.type = MEM_VALIDATION,
 		.description = "Framebuffer",
 		.base = 0x84000000,
-		.size = 0x08000000,
+		.size = 0x12000000,
 		.flags = _MALI_CPU_WRITEABLE | _MALI_CPU_READABLE | _MALI_PP_WRITEABLE | _MALI_PP_READABLE
 	},
 	{
