@@ -10,7 +10,7 @@ so for example on mine.
 
 the android_eabi_ is still a work in progress
 
-EDIT 25September2012
+************** EDIT 25September2012 *************
 
 eabi472 works better, the android_eabi in that folder works as well. 
 
