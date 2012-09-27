@@ -6,8 +6,8 @@ on early-init
     symlink /initlogo.rle.bak /initlogo.rle
     write /sys/class/graphics/fb0/blank 0
     write /sys/class/graphics/fb1/blank 1
-    insmod /boot/ump.ko ump_debug_level=2
-    insmod /boot/mali.ko mali_debug_level=2
+    insmod /boot/ump.ko ump_debug_level=0
+    insmod /boot/mali.ko mali_debug_level=0
 
 # create mountpoints
     mkdir /mnt 0775 root system
@@ -511,7 +511,7 @@ on boot
    chmod 664 /sys/devices/system/cpu/cpu1/online
    
    	
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1500000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1512000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 96000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor conservative
     write /sys/class/freq_limit/limit 0

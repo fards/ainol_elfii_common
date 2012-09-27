@@ -25,15 +25,16 @@ struct axp_cfg_info *axp_cfg_board;
 
 static inline int is_ac_online(void)
 {
-	int val;
-	
-	SET_CBUS_REG_MASK(PAD_PULL_UP_REG0, (1<<20));	//enable internal pullup
-	set_gpio_mode(GPIOA_bank_bit0_27(20), GPIOA_bit_bit0_27(20), GPIO_INPUT_MODE);
-	val = get_gpio_val(GPIOA_bank_bit0_27(20), GPIOA_bit_bit0_27(20));
-	
-	//logd("%s: get from gpio is %d.\n", __FUNCTION__, val);
-	
-	return !val;
+	uint8_t val;
+	axp_read(&axp->dev,0x00, &val);
+	if(val & ((1<<7) | (1<<5)))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 static void axp_mfd_irq_work(struct work_struct *work)

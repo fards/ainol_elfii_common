@@ -841,7 +841,7 @@ static void meson_pm_suspend(void)
     }
 #else
 #ifdef CONFIG_MESON_SUSPEND
-extern int meson_power_suspend(void);
+extern int meson_power_suspend();
     meson_power_suspend();
 #else
     /**
@@ -985,7 +985,7 @@ static struct platform_suspend_ops meson_pm_ops = {
     .valid        = suspend_valid_only_mem,
 };
 
-static void power_off_unused_pll(void)
+static power_off_unused_pll(void)
 {
     aml_write_reg32(P_HHI_MPLL_CNTL7, 0x01082000); //turn off mp0
     aml_write_reg32(P_HHI_MPLL_CNTL8, 0x01082000); //turn off mp1
