@@ -9,3 +9,33 @@ so for example on mine.
  make -f kernel.mk TARGET=g06 INSTALL_ROOT=out/initramfs_CM10/ CROSS_COMPILE=/media/ian/android1/AMLOGIC/ainol_elfii_common/toolchain/linaro_gnueabihf/bin/arm-linux-gnueabihf-
 
 the android_eabi_ is still a work in progress
+
+EDIT 25September2012
+
+eabi472 works better, the android_eabi in that folder works as well. 
+
+so either 
+
+make -f kernel.mk TARGET=g06 INSTALL_ROOT=out/initramfs_CM10/ CROSS_COMPILE=/media/ian/android1/AMLOGIC/ainol_elfii_common/toolchain/android-eabi_472/bin/arm-eabi- 
+
+or use 
+
+make -f kernel.mk TARGET=g06 INSTALL_ROOT=out/initramfs_CM10/ CROSS_COMPILE=/media/ian/android1/AMLOGIC/ainol_elfii_common/toolchain/android-eabi_472/bin/arm-eabi- 
+
+if you wish to flash this then do the following
+
+adb push uImage_recovery sdcard/uImage_my_first_custom_kernel
+
+then 
+adb shell 
+flash_image boot sdcard/uImage_my_first_custom_kernel
+reboot 
+if it all goes well then you'll need to fix the wifi with your own dhd.ko so
+
+adb push .out/modules/dhd.ko sdcard/dhd.ko_mine
+adb shell
+cp /system/lib/modules/dhd.ko /system/lib/modules/dhd.ko.backup
+cp /sdcard/dhd.ko_mine /system/lib/modules/
+
+
+
