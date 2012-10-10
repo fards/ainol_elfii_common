@@ -1,24 +1,11 @@
-you need to use the toolchain listed, and change the path to the exact location. 
 
 make -f kernel.mk TARGET=g06 INSTALL_ROOT=out/initramfs_<VERSION>/ CROSS_COMPILE=/<DIRECT_PATH_TO>/linaro_gnueabihf/bin/arm-linux-gnueabihf-
 
 there's 3 initramfs inlcuded, choose which you want and build accordingly. 
 
-so for example on mine. 
-
- make -f kernel.mk TARGET=g06 INSTALL_ROOT=out/initramfs_CM10/ CROSS_COMPILE=/media/ian/android1/AMLOGIC/ainol_elfii_common/toolchain/linaro_gnueabihf/bin/arm-linux-gnueabihf-
-
-the android_eabi_ is still a work in progress
-
-************** EDIT 25September2012 *************
-
 eabi472 works better, the android_eabi in that folder works as well. 
 
 so either 
-
-make -f kernel.mk TARGET=g06 INSTALL_ROOT=out/initramfs_CM10/ CROSS_COMPILE=/media/ian/android1/AMLOGIC/ainol_elfii_common/toolchain/android-eabi_472/bin/arm-eabi- 
-
-or use 
 
 make -f kernel.mk TARGET=g06 INSTALL_ROOT=out/initramfs_CM10/ CROSS_COMPILE=/media/ian/android1/AMLOGIC/ainol_elfii_common/toolchain/android-eabi_472/bin/arm-eabi- 
 
@@ -39,3 +26,7 @@ cp /sdcard/dhd.ko_mine /system/lib/modules/
 
 
 
+for the current builds on the Elf_ii you need newer Mali libs they are available here : 
+https://github.com/fards/Elfii_mali_binaries
+
+if you are using one of Christian Troy's builds then they are already included. 
